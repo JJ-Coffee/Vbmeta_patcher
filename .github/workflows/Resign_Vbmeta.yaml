@@ -60,9 +60,21 @@ jobs:
           --output vbmeta-signed.img
 
     # Step 6: Upload the modified vbmeta.img
-    - name: Upload vbmeta-signed.img
+    - name: Upload vbmeta-signed.img To Artifact
       uses: actions/upload-artifact@v3
       with:
         name: vbmeta-signed.img
         path: vbmeta-signed.img
         
+    - name: Create Release and Upload vbmeta-signed.img
+      uses: softprops/action-gh-release@v1
+      with:
+        files: vbmeta-signed.img
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # Optional: Add release notes or tag version
+    - name: Add release notes
+      run: |
+        git tag -a v1.0 -m "First signed release"
+        git push origin v1.0
