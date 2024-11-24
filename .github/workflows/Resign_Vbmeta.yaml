@@ -63,5 +63,5 @@ jobs:
     - name: Upload vbmeta-signed.img To Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: vbmeta-signed.img
+        name: vbmeta-signed
         path: vbmeta-signed
