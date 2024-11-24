@@ -32,7 +32,9 @@ jobs:
 
     - name: Install avbtool
       run: |
-        pip3 install avbtool
+        wget https://android.googlesource.com/platform/external/avb/+/refs/heads/main/avbtool.py?format=TEXT -O avbtool_base64
+        base64 -d avbtool_base64 > avbtool
+        chmod +x avbtool
 
     # Step 3: Verify the existing vbmeta.img
     - name: Verify vbmeta.img
