@@ -30,11 +30,9 @@ jobs:
         sudo apt install -y python3 python3-pip openssl
         pip3 install pycryptodome
 
-    - name: Download avbtool
+    - name: Install avbtool
       run: |
-        wget https://android.googlesource.com/platform/external/avb/+/refs/heads/master/avbtool?format=TEXT -O avbtool_base64
-        base64 -d avbtool_base64 > avbtool
-        chmod +x avbtool
+        pip3 install avbtool
 
     # Step 3: Verify the existing vbmeta.img
     - name: Verify vbmeta.img
