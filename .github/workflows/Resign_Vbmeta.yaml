@@ -1,12 +1,18 @@
 name: ReSign vbmeta.img
 
 on:
+  repository_dispatch:
   workflow_dispatch:
     inputs:
       rollback_index:
-        description: Rollback index to use (default: 0)
+        description: "Rollback index to use (default: 0)"
         required: false
         default: "0"
+        type: choice
+        options:
+          - 0
+          - 12
+          
 
 jobs:
   sign-vbmeta:
