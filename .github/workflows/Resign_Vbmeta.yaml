@@ -54,14 +54,28 @@ jobs:
         ./avbtool make_vbmeta_image \
           --key phh.pem \
           --algorithm SHA256_RSA4096 \
-          --flag 2 \
+          --flag 3 \
           --padding_size 4096 \
           --rollback_index ${{ inputs.rollback_index }} \
           --output vbmeta-signed.img
+          
+          
+    # Step 6: Re-sign vbmeta.img
+    - name: resize vbmeta-signed.img
+      run: |
+        ./avbtool add_hash_footer \
+          --image vbmeta-signed.img \
+          --partition_name vbmeta \
+          --partition_size 8388608
+          
+          
+    - name: Delete Footer
+      run: |
+        dd if=vbmeta-signed.img of=vbmeta_no_footer.img bs=1 count=$(( $(stat -c %s vbmeta-signed.img) - 4096 ))
 
     # Step 6: Upload the modified vbmeta.img
     - name: Upload vbmeta-signed.img To Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: vbmeta-signed.img
-        path: vbmeta-signed.img
+        name: vbmeta_no_footer.img
+        path: vbmeta_no_footer.img
