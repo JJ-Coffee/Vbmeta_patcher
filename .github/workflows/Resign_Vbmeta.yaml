@@ -55,7 +55,6 @@ jobs:
           --key phh.pem \
           --algorithm SHA256_RSA2048 \
           --flag 3 \
-          --padding_size 4096 \
           --rollback_index ${{ inputs.rollback_index }} \
           --output vbmeta-signed.img
           
